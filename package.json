@@ -26,7 +26,7 @@
     "menus": {
       "explorer/context": [
         {
-          "when": "resourceScheme == file && !isFile",
+          "when": "explorerResourceIsFolder",
           "command": "extension.copyFolderContent",
           "group": "copy-folder-content"
         }
