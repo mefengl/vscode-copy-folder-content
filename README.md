@@ -2,6 +2,10 @@
 
 🚀 This is a Visual Studio Code (VSCode) extension that allows you to easily copy the content of a selected folder into your clipboard.
 
+## Why This Extension?
+
+This extension simplifies the process of referencing multiple file types simultaneously, promoting a more efficient way to prompt language learning models such as ChatGPT.
+
 ## Features 💡
 
 When you right-click on a folder in your explorer panel, you'll see an option "Copy Folder Content". Clicking on this option will read all files in the folder and copy their content into your clipboard, ready for you to paste anywhere you like.
