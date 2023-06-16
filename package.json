@@ -2,7 +2,10 @@
   "name": "copy-folder-content",
   "displayName": "Copy Folder Content",
   "description": "Copies the content of a folder into the clipboard",
+  "icon": "res/logo.png",
+  "private": true,
   "author": "mefengl",
+  "publisher": "mefengl",
   "repository": "https://github.com/mefengl/vscode-copy-folder-content",
   "version": "0.0.1",
   "engines": {
