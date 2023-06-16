@@ -28,7 +28,7 @@
         {
           "when": "resourceScheme == file && !isFile",
           "command": "extension.copyFolderContent",
-          "group": "navigation"
+          "group": "copy-folder-content"
         }
       ]
     }
