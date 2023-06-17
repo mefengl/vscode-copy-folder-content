@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color: #FF8C01; stop-opacity: 0.5" />
+      <stop offset="100%" style="stop-color: #FF0000; stop-opacity: 0.5" />
+    </linearGradient>
+  </defs>
+  <path stroke="url(#gradient)" stroke-width="3" d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+  <text x="12" y="15" font-family="Verdana" font-size="4" fill="url(#gradient)" text-anchor="middle" stroke-width=".5">Copy✨</text>
+</svg>

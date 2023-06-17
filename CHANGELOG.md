@@ -4,6 +4,12 @@ All notable changes to the "copy-folder-content" extension will be documented in
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.4] - 2023-06-18
+
+### Changed
+
+- Updated icon.
+
 ## [0.1.1] - 2023-06-16
 
 ### Fixed
