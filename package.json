@@ -7,7 +7,7 @@
   "author": "mefengl",
   "publisher": "mefengl",
   "repository": "https://github.com/mefengl/vscode-copy-folder-content",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "engines": {
     "vscode": "^1.79.0"
   },
