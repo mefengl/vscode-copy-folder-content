@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
-
     let disposable = vscode.commands.registerCommand('extension.copyFolderContent', async (folder: vscode.Uri) => {
         // Prepare to read the directory and its files
         try {
@@ -22,6 +21,11 @@ export function activate(context: vscode.ExtensionContext) {
                 }
             }
 
+            // add the suffix
+            const config = vscode.workspace.getConfiguration('copy-folder-content');
+            const suffix = config.get('suffix') as string;
+            content += suffix;
+
             await vscode.env.clipboard.writeText(content);
             vscode.window.showInformationMessage('Folder content copied to clipboard!');
         } catch (err) {
@@ -32,5 +36,4 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }

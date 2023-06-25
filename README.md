@@ -1,6 +1,6 @@
 # 📂 Copy Folder Content VSCode Extension 📋
 
-🚀 This is a Visual Studio Code (VSCode) extension that allows you to easily copy the content of a selected folder into your clipboard.
+🚀 This is a Visual Studio Code (VSCode) extension that allows you to easily copy the content of a selected folder into your clipboard, with an optional suffix to append.
 
 ## Why This Extension?
 
@@ -8,7 +8,11 @@ This extension simplifies the process of referencing multiple file types simulta
 
 ## Features 💡
 
-When you right-click on a folder in your explorer panel, you'll see an option "Copy Folder Content". Clicking on this option will read all files in the folder and copy their content into your clipboard, ready for you to paste anywhere you like.
+When you right-click on a folder in your explorer panel, you'll see an option "Copy Folder Content". Clicking on this option will read all files in the folder and copy their content, along with a user-defined suffix, into your clipboard, ready for you to paste anywhere you like.
+
+## Settings 🔧
+
+- `copy-folder-content.suffix`: Suffix to append after the copied folder content. Default is an empty string.
 
 ## Installation 🔧
 
@@ -22,7 +26,7 @@ When you right-click on a folder in your explorer panel, you'll see an option "C
 1. Open the Explorer panel in VSCode.
 2. Right-click on the folder you want to copy content from.
 3. Click on "Copy Folder Content".
-4. The content of all files in the selected folder is now in your clipboard!
+4. The content of all files in the selected folder, along with the specified suffix, is now in your clipboard!
 
 ## Contributing 🤝
 

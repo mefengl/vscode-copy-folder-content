@@ -1,8 +1,12 @@
 # Change Log
 
-All notable changes to the "copy-folder-content" extension will be documented in this file.
-
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+
+## [0.2.0] - 2023-06-25
+
+### Added
+
+- Added a new extension setting "Suffix" which appends a specified suffix after the copied folder content.
 
 ## [0.1.4] - 2023-06-18
 

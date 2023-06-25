@@ -17,6 +17,16 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Copy Folder Content",
+      "properties": {
+        "copy-folder-content.suffix": {
+          "type": "string",
+          "default": "",
+          "description": "Suffix to append after the copied folder content."
+        }
+      }
+    },
     "commands": [
       {
         "command": "extension.copyFolderContent",
