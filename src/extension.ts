@@ -4,7 +4,6 @@ import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
     let disposable = vscode.commands.registerCommand('extension.copyFolderContent', async (folder: vscode.Uri) => {
-        // Prepare to read the directory and its files
         try {
             let files = await fs.promises.readdir(folder.fsPath);
             let content = '';
@@ -20,11 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
                     content += fileContent + '\n';
                 }
             }
-
-            // add the suffix
-            const config = vscode.workspace.getConfiguration('copy-folder-content');
-            const suffix = config.get('suffix') as string;
-            content += suffix;
+            content += vscode.workspace.getConfiguration('copy-folder-content').get('suffix');
 
             await vscode.env.clipboard.writeText(content);
             vscode.window.showInformationMessage('Folder content copied to clipboard!');
