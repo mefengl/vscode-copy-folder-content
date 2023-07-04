@@ -31,6 +31,10 @@
       {
         "command": "extension.copyFolderContent",
         "title": "Copy Folder Content"
+      },
+      {
+        "command": "extension.copyFolderContentWithSuffix",
+        "title": "Copy Folder Content With Suffix"
       }
     ],
     "menus": {
@@ -38,6 +42,11 @@
         {
           "when": "explorerResourceIsFolder",
           "command": "extension.copyFolderContent",
+          "group": "copy-folder-content"
+        },
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "extension.copyFolderContentWithSuffix",
           "group": "copy-folder-content"
         }
       ]

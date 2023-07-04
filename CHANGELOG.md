@@ -2,6 +2,16 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.2.1] - 2023-07-04
+
+### Added
+
+- Added a new command "Copy Folder Content With Suffix" that appends a user-defined suffix to the copied content.
+
+### Changed
+
+- The "Copy Folder Content" command no longer appends the suffix.
+
 ## [0.2.0] - 2023-06-25
 
 ### Added
