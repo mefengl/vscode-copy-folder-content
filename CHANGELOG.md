@@ -2,6 +2,10 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.3.0] - 2023-07-11
+
+- Add: a new command "Copy Folder Content Without Comments" that copies the folder content without comments.
+
 ## [0.2.1] - 2023-07-04
 
 ### Added
