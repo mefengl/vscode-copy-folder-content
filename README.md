@@ -11,16 +11,10 @@ Simplify the referencing of multiple file types and enhance the efficiency of pr
 On right-clicking a folder in the explorer panel, you can:
 
 - Copy Folder Content
-- Copy Folder Content With Suffix
+- Copy Folder Content With Prompt
 - Copy Folder Content Without Comments
 
-Each option copies file content into your clipboard with optional user-defined suffix or sans comments.
-
-## Settings 🔧
-
-| Setting | Description | Default |
-| --- | --- | --- |
-| `copy-folder-content.suffix` | Suffix to append after the copied folder content when using "Copy Folder Content With Suffix" command | "" (empty string) |
+Each option copies file content into your clipboard with optional user-defined prompt or sans comments.
 
 ## Installation 🔧
 
@@ -34,6 +28,7 @@ Each option copies file content into your clipboard with optional user-defined s
 1. Open the Explorer panel in VSCode.
 2. Right-click on desired folder.
 3. Select your preferred copying option.
+   - If you select "Copy Folder Content With Prompt", you will be asked to enter a prompt that will be added at the beginning and end of the copied content.
 4. Your clipboard is now loaded with the content!
 
 ## Contributing 🤝

@@ -2,6 +2,13 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.4.0] - 2023-08-08
+
+### Changed
+
+- Removed the setting "Suffix".
+- The "Copy Folder Content With Suffix" command has been replaced with the "Copy Folder Content With Prompt" command. This command prompts the user to input a string which is added at the beginning and end of the copied content.
+
 ## [0.3.0] - 2023-07-11
 
 - Add: a new command "Copy Folder Content Without Comments" that copies the folder content without comments.

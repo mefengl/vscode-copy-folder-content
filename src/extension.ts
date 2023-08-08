@@ -24,28 +24,27 @@ async function copyContent(files: string[], withoutComments: boolean = false): P
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    const copyFolderContent = async (folder: vscode.Uri, includeSuffix: boolean, withoutComments: boolean) => {
+    const copyFolderContent = async (folder: vscode.Uri, prompt: string, withoutComments: boolean) => {
         try {
             const files = (await fs.promises.readdir(folder.fsPath)).map(fileName => path.join(folder.fsPath, fileName));
-            let content = await copyContent(files, withoutComments);
-
-            if (includeSuffix) {
-                content += vscode.workspace.getConfiguration('copy-folder-content').get('suffix');
-            }
+            let content = prompt + '\n' + await copyContent(files, withoutComments) + '\n' + prompt;
 
             await vscode.env.clipboard.writeText(content);
-            vscode.window.showInformationMessage(`Folder content copied to clipboard${includeSuffix ? ' with suffix' : ''}!`);
+            vscode.window.showInformationMessage(`Folder content copied to clipboard${prompt ? ' with prompt' : ''}!`);
         } catch (err) {
             vscode.window.showErrorMessage('Could not read folder');
         }
     };
 
-    const disposable = vscode.commands.registerCommand('extension.copyFolderContent', folder => copyFolderContent(folder, false, false));
-    const disposableWithSuffix = vscode.commands.registerCommand('extension.copyFolderContentWithSuffix', folder => copyFolderContent(folder, true, false));
-    const disposableWithoutComments = vscode.commands.registerCommand('extension.copyFolderContentWithoutComments', folder => copyFolderContent(folder, false, true));
+    const disposable = vscode.commands.registerCommand('extension.copyFolderContent', folder => copyFolderContent(folder, '', false));
+    const disposableWithPrompt = vscode.commands.registerCommand('extension.copyFolderContentWithPrompt', async folder => {
+        const prompt = await vscode.window.showInputBox({ prompt: 'Enter the prompt' }) || '';
+        return copyFolderContent(folder, prompt, false);
+    });
+    const disposableWithoutComments = vscode.commands.registerCommand('extension.copyFolderContentWithoutComments', folder => copyFolderContent(folder, '', true));
 
     context.subscriptions.push(disposable);
-    context.subscriptions.push(disposableWithSuffix);
+    context.subscriptions.push(disposableWithPrompt);
     context.subscriptions.push(disposableWithoutComments);
 }
 
