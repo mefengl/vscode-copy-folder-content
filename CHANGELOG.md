@@ -2,6 +2,12 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.0.1] - 2023-08-08
+
+### Updated
+
+- Updated the description of the extension in the package.json file.
+
 ## [1.0.0] - 2023-08-08
 
 ### Added
