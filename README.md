@@ -1,35 +1,56 @@
 # 📂 Copy Folder Content VSCode Extension 📋
 
-This Visual Studio Code (VSCode) extension allows you to copy the content of a selected folder into your clipboard, with additional customization options.
+This Visual Studio Code (VSCode) extension allows you to copy the content of a selected folder or file into your clipboard, providing additional customization options.
 
 ## Why This Extension?
 
-Simplify the referencing of multiple file types and enhance the efficiency of prompting language learning models like ChatGPT.
+This extension simplifies the process of referencing multiple file types and enhances the efficiency of prompting language learning models like ChatGPT.
 
 ## Features 💡
 
-On right-clicking a folder in the explorer panel, you can:
+This extension provides unique commands based on whether a file or a folder is selected in the explorer panel.
+
+### Folder Commands
 
 - Copy Folder Content
 - Copy Folder Content With Prompt
 - Copy Folder Content Without Comments
 
-Each option copies file content into your clipboard with optional user-defined prompt or sans comments.
+Each of these options allows you to copy the content of all files in a selected folder to your clipboard. You can opt to include a user-defined prompt or exclude comments from the copied content.
+
+### File Commands
+
+- Add File to Collection
+- Add File to Collection and Copy
+- Begin New File Collection
+
+These commands enable you to create a collection of individual files, add to the collection, and copy the entire collection's content to your clipboard.
 
 ## Installation 🔧
 
-1. Open Visual Studio Code
-2. Press `Ctrl+P` to open quick open dialog
-3. Type `ext install copy-folder-content` and hit enter
-4. Reload Visual Studio Code
+1. Open Visual Studio Code.
+2. Press `Ctrl+P` to open the quick open dialog.
+3. Type `ext install copy-folder-content` and hit enter.
+4. Reload Visual Studio Code.
 
 ## Usage 🖱️
 
+### Folder Operations:
+
 1. Open the Explorer panel in VSCode.
-2. Right-click on desired folder.
+2. Right-click on your desired folder.
 3. Select your preferred copying option.
-   - If you select "Copy Folder Content With Prompt", you will be asked to enter a prompt that will be added at the beginning and end of the copied content.
-4. Your clipboard is now loaded with the content!
+   - If you select "Copy Folder Content With Prompt", you will be prompted to enter a string that will be added at the beginning and end of the copied content.
+4. The content is now loaded onto your clipboard!
+
+### File Operations:
+
+1. Open the Explorer panel in VSCode.
+2. Right-click on your desired file.
+3. Select your preferred collection option.
+   - "Add File to Collection" adds the selected file to your current collection.
+   - "Add File to Collection and Copy" adds the selected file to your current collection and copies the entire collection to the clipboard.
+   - "Begin New File Collection" clears your current collection and adds the selected file as the first item in the new collection.
 
 ## Contributing 🤝
 

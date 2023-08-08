@@ -2,6 +2,12 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.0.0] - 2023-08-08
+
+### Added
+
+- New commands "Add to Collection", "Add to Collection and Copy", and "Begin New Collection and Add". These commands allow users to create a collection of files and copy their content all at once.
+
 ## [0.4.0] - 2023-08-08
 
 ### Changed
@@ -11,7 +17,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [0.3.0] - 2023-07-11
 
-- Add: a new command "Copy Folder Content Without Comments" that copies the folder content without comments.
+### Added
+
+- Added a new command "Copy Folder Content Without Comments" that copies the folder content without comments.
 
 ## [0.2.1] - 2023-07-04
 

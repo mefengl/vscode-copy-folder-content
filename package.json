@@ -1,7 +1,7 @@
 {
   "name": "copy-folder-content",
   "displayName": "Copy Folder Content",
-  "description": "Copies the content of a folder into the clipboard",
+  "description": "Copies the content of a folder or file into the clipboard",
   "icon": "res/logo.png",
   "private": true,
   "author": "mefengl",
@@ -29,6 +29,18 @@
       {
         "command": "extension.copyFolderContentWithoutComments",
         "title": "Copy Folder Content Without Comments"
+      },
+      {
+        "command": "extension.addToCollection",
+        "title": "Add File to Collection"
+      },
+      {
+        "command": "extension.addToCollectionAndCopy",
+        "title": "Add File to Collection and Copy"
+      },
+      {
+        "command": "extension.newCollectionAndAdd",
+        "title": "Start New Collection with File"
       }
     ],
     "menus": {
@@ -46,6 +58,21 @@
         {
           "when": "explorerResourceIsFolder",
           "command": "extension.copyFolderContentWithoutComments",
+          "group": "copy-folder-content"
+        },
+        {
+          "when": "!explorerResourceIsFolder",
+          "command": "extension.addToCollection",
+          "group": "copy-folder-content"
+        },
+        {
+          "when": "!explorerResourceIsFolder",
+          "command": "extension.addToCollectionAndCopy",
+          "group": "copy-folder-content"
+        },
+        {
+          "when": "!explorerResourceIsFolder",
+          "command": "extension.newCollectionAndAdd",
           "group": "copy-folder-content"
         }
       ]
