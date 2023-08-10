@@ -2,6 +2,12 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.1.0] - 2023-08-10
+
+### Added
+
+- New command "Copy Collection and Clear". This command allows users to copy the content of the current file collection to the clipboard and clear the collection.
+
 ## [1.0.1] - 2023-08-08
 
 ### Updated

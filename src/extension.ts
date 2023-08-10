@@ -59,6 +59,13 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage(`New collection started with file!`);
     };
 
+    const copyCollectionAndClear = async () => {
+        const content = await copyContent(filesCollection);
+        await vscode.env.clipboard.writeText(content);
+        filesCollection = []; // Clear the collection
+        vscode.window.showInformationMessage(`Collection copied to clipboard and cleared!`);
+    };
+
     const disposable = vscode.commands.registerCommand('extension.copyFolderContent', folder => copyFolderContent(folder, '', false));
     const disposableWithPrompt = vscode.commands.registerCommand('extension.copyFolderContentWithPrompt', async folder => {
         const prompt = await vscode.window.showInputBox({ prompt: 'Enter the prompt' }) || '';
@@ -71,6 +78,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     const disposableAddToCollectionAndCopy = vscode.commands.registerCommand('extension.addToCollectionAndCopy', addToCollectionAndCopy);
     const disposableNewCollectionAndAdd = vscode.commands.registerCommand('extension.newCollectionAndAdd', newCollectionAndAdd);
+    const disposableCopyCollectionAndClear = vscode.commands.registerCommand('extension.copyCollectionAndClear', copyCollectionAndClear);
 
     context.subscriptions.push(disposable);
     context.subscriptions.push(disposableWithPrompt);
@@ -78,6 +86,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposableAddToCollection);
     context.subscriptions.push(disposableAddToCollectionAndCopy);
     context.subscriptions.push(disposableNewCollectionAndAdd);
+    context.subscriptions.push(disposableCopyCollectionAndClear);
 }
 
 export function deactivate() { }

@@ -23,8 +23,9 @@ Each of these options allows you to copy the content of all files in a selected 
 - Add File to Collection
 - Add File to Collection and Copy
 - Begin New File Collection
+- Copy Collection and Clear
 
-These commands enable you to create a collection of individual files, add to the collection, and copy the entire collection's content to your clipboard.
+These commands enable you to create a collection of individual files, add to the collection, copy the entire collection's content to your clipboard, and clear the collection.
 
 ## Installation 🔧
 
@@ -51,6 +52,7 @@ These commands enable you to create a collection of individual files, add to the
    - "Add File to Collection" adds the selected file to your current collection.
    - "Add File to Collection and Copy" adds the selected file to your current collection and copies the entire collection to the clipboard.
    - "Begin New File Collection" clears your current collection and adds the selected file as the first item in the new collection.
+   - "Copy Collection and Clear" copies the current collection to the clipboard and clears it.
 
 ## Contributing 🤝
 

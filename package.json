@@ -31,6 +31,10 @@
         "title": "Copy Folder Content Without Comments"
       },
       {
+        "command": "extension.newCollectionAndAdd",
+        "title": "Start New Collection with File"
+      },
+      {
         "command": "extension.addToCollection",
         "title": "Add File to Collection"
       },
@@ -39,8 +43,8 @@
         "title": "Add File to Collection and Copy"
       },
       {
-        "command": "extension.newCollectionAndAdd",
-        "title": "Start New Collection with File"
+        "command": "extension.copyCollectionAndClear",
+        "title": "Copy Collection and Clear"
       }
     ],
     "menus": {
@@ -62,6 +66,11 @@
         },
         {
           "when": "!explorerResourceIsFolder",
+          "command": "extension.newCollectionAndAdd",
+          "group": "copy-folder-content"
+        },
+        {
+          "when": "!explorerResourceIsFolder",
           "command": "extension.addToCollection",
           "group": "copy-folder-content"
         },
@@ -72,7 +81,7 @@
         },
         {
           "when": "!explorerResourceIsFolder",
-          "command": "extension.newCollectionAndAdd",
+          "command": "extension.copyCollectionAndClear",
           "group": "copy-folder-content"
         }
       ]
