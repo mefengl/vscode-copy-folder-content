@@ -1,16 +1,6 @@
-# 📂 Copy Folder Content VSCode Extension 📋: Seamless Solution for Bulk File Content Copying
+# 📂 Copy Folder Content: AI Prompt Made Easy
 
 This Visual Studio Code (VSCode) extension empowers you to effortlessly copy the content of any selected folder or file to your clipboard, offering customizable options for developers, content creators, and educators.
-
-## Why Choose This Extension?
-
-- **Simplification of File Management**: Copying multiple file contents made easy.
-- **Enhanced Productivity**: Speeds up tasks in front-end development, extension development, and project configuration.
-- **Support for Language Learning Models**: Ideal for prompting language learning models like ChatGPT.
-
-## Features 💡
-
-Tailor your file and folder copying experience with unique commands available through the explorer panel.
 
 ## Key Use Cases:
 
@@ -28,13 +18,6 @@ Tailor your file and folder copying experience with unique commands available th
 
 - **Create File Collection**: Add individual files, copy the collection, and manage with ease.
 
-## Quick Installation 🔧
-
-1. Launch Visual Studio Code.
-2. Use `Ctrl+P` to access the quick open dialog.
-3. Enter `ext install copy-folder-content` and confirm.
-4. Refresh Visual Studio Code.
-
 ## Easy Usage 🖱️
 
 ### Folder Operations:
@@ -51,10 +34,10 @@ Tailor your file and folder copying experience with unique commands available th
 
 ## Collaborate and Contribute 🤝
 
-Join us in enhancing this extension. Pull requests are welcome, and for significant changes, please open an issue for discussion.
+Pull requests are welcome, and for significant changes, please open an issue for discussion.
 
 ## License 📄
 
 MIT
 
-Enjoy the convenience and efficiency! 🎉
+Enjoy! 🎉
