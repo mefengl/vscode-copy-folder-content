@@ -2,6 +2,12 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.2.0] - 2023-11-08
+
+### Added
+
+- Non-UTF-8 encoded support. [#31](https://github.com/mefengl/vscode-copy-folder-content/issues/31)
+
 ## [1.1.0] - 2023-08-10
 
 ### Added
