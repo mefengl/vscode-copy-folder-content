@@ -23,7 +23,7 @@ async function copyContent(files: string[], withoutComments: boolean = false): P
         fileContent = stripComments(fileContent)
           .replace(/\n\s*\n+/g, '\n\n')
       }
-      content += `// ${path.basename(file)}\n`
+      content += `// ${vscode.workspace.asRelativePath(file)}\n`
       content += `${fileContent}\n`
     }
   }
