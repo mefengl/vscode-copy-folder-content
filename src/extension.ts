@@ -2,6 +2,8 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as vscode from 'vscode'
 import stripComments from 'strip-comments'
+import * as jschardet from 'jschardet'
+import * as iconv from 'iconv-lite'
 
 let filesCollection: string[] = []
 
@@ -11,14 +13,17 @@ async function copyContent(files: string[], withoutComments: boolean = false): P
     const stats = await fs.promises.stat(file)
 
     if (stats.isFile()) {
-      let fileContent = await fs.promises.readFile(file, 'utf-8')
-
+      const buffer = await fs.promises.readFile(file)
+      const detected = jschardet.detect(buffer)
+      let fileContent
+      if (detected.encoding !== 'utf-8' && detected.encoding !== 'ascii' && detected.confidence > 0.5)
+        fileContent = iconv.decode(buffer, detected.encoding)
+      else fileContent = buffer.toString('utf-8')
       if (withoutComments) {
         fileContent = stripComments(fileContent)
           .replace(/\n\s*\n+/g, '\n\n')
       }
-
-      content += `// ${vscode.workspace.asRelativePath(file)}\n`
+      content += `// ${path.basename(file)}\n`
       content += `${fileContent}\n`
     }
   }

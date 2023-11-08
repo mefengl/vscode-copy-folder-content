@@ -96,6 +96,8 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "iconv-lite": "^0.6.3",
+    "jschardet": "^3.0.0",
     "strip-comments": "^2.0.1"
   },
   "devDependencies": {
