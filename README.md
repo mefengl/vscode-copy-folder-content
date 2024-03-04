@@ -13,6 +13,7 @@ This Visual Studio Code (VSCode) extension empowers you to effortlessly copy the
 - **Copy Folder Content**: Include all files in the selected folder.
 - **Copy with Prompt**: Add a user-defined prompt.
 - **Copy Without Comments**: Exclude comments from copied content.
+- **Recursive Copy**: Recursively copy all files from the folder and its subfolders.
 
 ### File Commands
 

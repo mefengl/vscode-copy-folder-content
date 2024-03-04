@@ -2,6 +2,12 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.3.0] - 2024-03-04
+
+### Added
+
+- Recursive folder content copying with file count check.
+
 ## [1.2.0] - 2023-11-08
 
 ### Added
