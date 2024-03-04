@@ -30,6 +30,53 @@ async function copyContent(files: string[], withoutComments: boolean = false): P
   return content
 }
 
+async function countFiles(folderPath: string): Promise<number> {
+  let count = 0
+  const entries = await fs.promises.readdir(folderPath, { withFileTypes: true })
+  for (const entry of entries) {
+    const entryPath = path.join(folderPath, entry.name)
+    if (entry.isDirectory())
+      count += await countFiles(entryPath) // Recurse into subdirectories
+    else
+      count++
+  }
+  return count
+}
+
+async function copyFolderRecursive(folderPath: string, withoutComments: boolean = false) {
+  const entries = await fs.promises.readdir(folderPath, { withFileTypes: true })
+  for (const entry of entries) {
+    const entryPath = path.join(folderPath, entry.name)
+    if (entry.isDirectory())
+      await copyFolderRecursive(entryPath, withoutComments)
+    else
+      filesCollection.push(entryPath)
+  }
+}
+
+async function copyRecursiveFolderContent(folder: vscode.Uri, withoutComments: boolean) {
+  try {
+    const fileCount = await countFiles(folder.fsPath)
+    if (fileCount > 1000) {
+      const shouldContinue = await vscode.window.showWarningMessage(
+        `The folder contains more than 1000 files (${fileCount} files). Do you want to continue?`,
+        'Yes',
+        'No',
+      )
+      if (shouldContinue !== 'Yes')
+        return
+    }
+    filesCollection = []
+    await copyFolderRecursive(folder.fsPath, withoutComments)
+    const content = await copyContent(filesCollection, withoutComments)
+    await vscode.env.clipboard.writeText(content)
+    vscode.window.showInformationMessage(`Recursive folder content copied to clipboard${withoutComments ? ' without comments' : ''}!`)
+  }
+  catch (err) {
+    vscode.window.showErrorMessage('Could not read folder recursively')
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   const copyFolderContent = async (folder: vscode.Uri, prompt: string, withoutComments: boolean) => {
     try {
@@ -94,6 +141,9 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposableAddToCollectionAndCopy)
   context.subscriptions.push(disposableNewCollectionAndAdd)
   context.subscriptions.push(disposableCopyCollectionAndClear)
+
+  const disposableRecursiveCopy = vscode.commands.registerCommand('extension.copyRecursiveFolderContent', folder => copyRecursiveFolderContent(folder, false))
+  context.subscriptions.push(disposableRecursiveCopy)
 }
 
 export function deactivate() { }

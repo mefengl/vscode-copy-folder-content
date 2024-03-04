@@ -45,6 +45,10 @@
       {
         "command": "extension.copyCollectionAndClear",
         "title": "Copy Collection and Clear"
+      },
+      {
+        "command": "extension.copyRecursiveFolderContent",
+        "title": "Copy Recursive Folder Content"
       }
     ],
     "menus": {
@@ -62,6 +66,11 @@
         {
           "when": "explorerResourceIsFolder",
           "command": "extension.copyFolderContentWithoutComments",
+          "group": "copy-folder-content"
+        },
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "extension.copyRecursiveFolderContent",
           "group": "copy-folder-content"
         },
         {
