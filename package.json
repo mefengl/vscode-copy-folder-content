@@ -31,6 +31,10 @@
         "title": "Copy Folder Content Without Comments"
       },
       {
+        "command": "extension.copyFolderContentRecursively",
+        "title": "Copy Folder Content Recursively"
+      },
+      {
         "command": "extension.newCollectionAndAdd",
         "title": "Start New Collection with File"
       },
@@ -45,10 +49,6 @@
       {
         "command": "extension.copyCollectionAndClear",
         "title": "Copy Collection and Clear"
-      },
-      {
-        "command": "extension.copyFolderContentRecursively",
-        "title": "Copy Folder Content Recursively"
       }
     ],
     "menus": {
