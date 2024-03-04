@@ -32,7 +32,7 @@
       },
       {
         "command": "extension.copyFolderContentRecursively",
-        "title": "Copy Folder Content Recursively"
+        "title": "Recursively Copy Folder Content"
       },
       {
         "command": "extension.newCollectionAndAdd",
