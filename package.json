@@ -47,8 +47,8 @@
         "title": "Copy Collection and Clear"
       },
       {
-        "command": "extension.copyRecursiveFolderContent",
-        "title": "Copy Recursive Folder Content"
+        "command": "extension.copyFolderContentRecursively",
+        "title": "Copy Folder Content Recursively"
       }
     ],
     "menus": {
@@ -70,7 +70,7 @@
         },
         {
           "when": "explorerResourceIsFolder",
-          "command": "extension.copyRecursiveFolderContent",
+          "command": "extension.copyFolderContentRecursively",
           "group": "copy-folder-content"
         },
         {

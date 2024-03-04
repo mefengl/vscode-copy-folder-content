@@ -54,7 +54,7 @@ async function copyFolderRecursive(folderPath: string, withoutComments: boolean 
   }
 }
 
-async function copyRecursiveFolderContent(folder: vscode.Uri, withoutComments: boolean) {
+async function copyFolderContentRecursively(folder: vscode.Uri, withoutComments: boolean) {
   try {
     const fileCount = await countFiles(folder.fsPath)
     if (fileCount > 1000) {
@@ -142,7 +142,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposableNewCollectionAndAdd)
   context.subscriptions.push(disposableCopyCollectionAndClear)
 
-  const disposableRecursiveCopy = vscode.commands.registerCommand('extension.copyRecursiveFolderContent', folder => copyRecursiveFolderContent(folder, false))
+  const disposableRecursiveCopy = vscode.commands.registerCommand('extension.copyFolderContentRecursively', folder => copyFolderContentRecursively(folder, false))
   context.subscriptions.push(disposableRecursiveCopy)
 }
 
