@@ -35,6 +35,10 @@
         "title": "Recursively Copy Folder Content"
       },
       {
+        "command": "extension.copyFolderContentRecursivelyByType",
+        "title": "Recursively Copy Folder Content By Type"
+      },
+      {
         "command": "extension.newCollectionAndAdd",
         "title": "Start New Collection with File"
       },
@@ -71,6 +75,11 @@
         {
           "when": "explorerResourceIsFolder",
           "command": "extension.copyFolderContentRecursively",
+          "group": "copy-folder-content"
+        },
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "extension.copyFolderContentRecursivelyByType",
           "group": "copy-folder-content"
         },
         {

@@ -77,6 +77,37 @@ async function copyFolderContentRecursively(folder: vscode.Uri, withoutComments:
   }
 }
 
+async function copyFolderContentRecursivelyByType(folder: vscode.Uri) {
+  try {
+    const fileExtensions = new Set<string>()
+    const files = await fs.promises.readdir(folder.fsPath)
+    for (const file of files) {
+      const extension = path.extname(file)
+      if (extension)
+        fileExtensions.add(extension)
+    }
+
+    const selectedExtensions = await vscode.window.showQuickPick(Array.from(fileExtensions), {
+      placeHolder: 'Select file extensions',
+      canPickMany: true,
+    })
+
+    if (!selectedExtensions || selectedExtensions.length === 0)
+      return
+
+    const filteredFiles = files
+      .filter(fileName => selectedExtensions.some(ext => fileName.endsWith(ext)))
+      .map(fileName => path.join(folder.fsPath, fileName))
+
+    const content = await copyContent(filteredFiles)
+    await vscode.env.clipboard.writeText(content)
+    vscode.window.showInformationMessage(`Folder content with file extensions ${selectedExtensions.join(', ')} copied to clipboard!`)
+  }
+  catch (err) {
+    vscode.window.showErrorMessage('Could not read folder')
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   const copyFolderContent = async (folder: vscode.Uri, prompt: string, withoutComments: boolean) => {
     try {
@@ -144,6 +175,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   const disposableRecursiveCopy = vscode.commands.registerCommand('extension.copyFolderContentRecursively', folder => copyFolderContentRecursively(folder, false))
   context.subscriptions.push(disposableRecursiveCopy)
+
+  const disposableCopyFolderContentByType = vscode.commands.registerCommand('extension.copyFolderContentRecursivelyByType', copyFolderContentRecursivelyByType)
+  context.subscriptions.push(disposableCopyFolderContentByType)
 }
 
 export function deactivate() { }

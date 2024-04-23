@@ -2,6 +2,12 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.4.0] - 2024-04-23
+
+### Added
+
+- Copy folder contents recursively while selecting specific file types.
+
 ## [1.3.0] - 2024-03-04
 
 ### Added
