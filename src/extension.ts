@@ -21,7 +21,7 @@ async function copyContent(files: string[], withoutComments: boolean = false): P
       else fileContent = buffer.toString('utf-8')
       if (withoutComments) {
         fileContent = stripComments(fileContent)
-          .replace(/\n\s*\n+/g, '\n\n')
+          .replace(/\n\s*\n/g, '\n\n')
       }
       content += `------ ${vscode.workspace.asRelativePath(file)} ------\n\`\`\`\`\`\`\n`
 
