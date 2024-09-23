@@ -71,7 +71,7 @@ async function copyFolderContentRecursively(folder: vscode.Uri, withoutComments:
     await copyFolderRecursive(folder.fsPath, withoutComments)
     const content = await copyContent(filesCollection, withoutComments)
     await vscode.env.clipboard.writeText(content)
-    vscode.window.showInformationMessage(`Recursive folder content copied to clipboard${withoutComments ? ' without comments' : ''}!`)
+    vscode.window.setStatusBarMessage(`Recursive folder content copied to clipboard${withoutComments ? ' without comments' : ''}!`, 5000)
   }
   catch (err) {
     vscode.window.showErrorMessage('Could not read folder recursively')
@@ -122,7 +122,7 @@ async function copyFolderContentRecursivelyByType(folder: vscode.Uri) {
 
     const content = await copyContent(filesCollection)
     await vscode.env.clipboard.writeText(content)
-    vscode.window.showInformationMessage(`Folder content with file extensions ${selectedExtensions.join(', ')} copied to clipboard!`)
+    vscode.window.setStatusBarMessage(`Folder content with file extensions ${selectedExtensions.join(', ')} copied to clipboard!`, 5000)
   }
   catch (err) {
     vscode.window.showErrorMessage('Could not read folder recursively')
@@ -136,7 +136,7 @@ export function activate(context: vscode.ExtensionContext) {
       const content = `${prompt}\n${await copyContent(files, withoutComments)}\n${prompt}`
 
       await vscode.env.clipboard.writeText(content)
-      vscode.window.showInformationMessage(`Folder content copied to clipboard${prompt ? ' with prompt' : ''}!`)
+      vscode.window.setStatusBarMessage(`Folder content copied to clipboard${prompt ? ' with prompt' : ''}!`, 5000)
     }
     catch (err) {
       vscode.window.showErrorMessage('Could not read folder')
@@ -156,20 +156,20 @@ export function activate(context: vscode.ExtensionContext) {
     await addToCollection(file)
     const content = await copyContent(filesCollection)
     await vscode.env.clipboard.writeText(content)
-    vscode.window.showInformationMessage(`File added to collection and copied to clipboard!`)
+    vscode.window.setStatusBarMessage(`File added to collection and copied to clipboard!`, 5000)
   }
 
   const newCollectionAndAdd = async (file: vscode.Uri) => {
     filesCollection = []
     await addToCollection(file)
-    vscode.window.showInformationMessage(`New collection started with file!`)
+    vscode.window.setStatusBarMessage(`New collection started with file!`, 5000)
   }
 
   const copyCollectionAndClear = async () => {
     const content = await copyContent(filesCollection)
     await vscode.env.clipboard.writeText(content)
     filesCollection = [] // Clear the collection
-    vscode.window.showInformationMessage(`Collection copied to clipboard and cleared!`)
+    vscode.window.setStatusBarMessage(`Collection copied to clipboard and cleared!`, 5000)
   }
 
   const disposable = vscode.commands.registerCommand('extension.copyFolderContent', folder => copyFolderContent(folder, '', false))
@@ -180,7 +180,7 @@ export function activate(context: vscode.ExtensionContext) {
   const disposableWithoutComments = vscode.commands.registerCommand('extension.copyFolderContentWithoutComments', folder => copyFolderContent(folder, '', true))
   const disposableAddToCollection = vscode.commands.registerCommand('extension.addToCollection', async (file) => {
     await addToCollection(file)
-    vscode.window.showInformationMessage(`File added to collection!`)
+    vscode.window.setStatusBarMessage(`File added to collection!`, 5000)
   })
   const disposableAddToCollectionAndCopy = vscode.commands.registerCommand('extension.addToCollectionAndCopy', addToCollectionAndCopy)
   const disposableNewCollectionAndAdd = vscode.commands.registerCommand('extension.newCollectionAndAdd', newCollectionAndAdd)
