@@ -13,7 +13,7 @@
   "main": "./dist/extension.js",
   "icon": "res/logo.png",
   "engines": {
-    "vscode": "^1.93.0"
+    "vscode": "^1.91.0"
   },
   "activationEvents": [],
   "contributes": {
@@ -124,7 +124,7 @@
     "@types/mocha": "^10.0.8",
     "@types/node": "20.6.2",
     "@types/strip-comments": "^2.0.4",
-    "@types/vscode": "^1.93.0",
+    "@types/vscode": "^1.91.0",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
     "@vscode/test-electron": "^2.4.1",
