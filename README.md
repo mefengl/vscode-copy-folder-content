@@ -1,5 +1,11 @@
 # 📂 Copy Folder Content: AI Prompt Made Easy
 
+---
+
+If you prefer cli, here's a tui tool: [pray](https://github.com/mefengl/pray)
+
+---
+
 This Visual Studio Code (VSCode) extension empowers you to effortlessly copy the content of any selected folder or file to your clipboard, offering customizable options for developers, content creators, and educators.
 
 ## Key Use Cases:
