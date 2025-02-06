@@ -1,9 +1,9 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import * as vscode from 'vscode'
-import stripComments from 'strip-comments'
-import * as jschardet from 'jschardet'
 import * as iconv from 'iconv-lite'
+import * as jschardet from 'jschardet'
+import stripComments from 'strip-comments'
+import * as vscode from 'vscode'
 
 let filesCollection: string[] = []
 
@@ -129,6 +129,45 @@ async function copyFolderContentRecursivelyByType(folder: vscode.Uri) {
   }
 }
 
+async function copySelected(selectedItems: vscode.Uri[]) {
+  try {
+    const tempCollection: string[] = []
+
+    for (const item of selectedItems) {
+      const stats = await fs.promises.stat(item.fsPath)
+
+      if (stats.isFile()) {
+        tempCollection.push(item.fsPath)
+      }
+      else if (stats.isDirectory()) {
+        // Only get direct children (non-recursive)
+        const files = await fs.promises.readdir(item.fsPath)
+        for (const file of files) {
+          const filePath = path.join(item.fsPath, file)
+          const fileStats = await fs.promises.stat(filePath)
+          if (fileStats.isFile()) {
+            tempCollection.push(filePath)
+          }
+        }
+      }
+    }
+
+    if (tempCollection.length > 0) {
+      const content = await copyContent(tempCollection)
+      await vscode.env.clipboard.writeText(content)
+      vscode.window.setStatusBarMessage(
+        `Selected content copied to clipboard!`,
+        5000,
+      )
+    }
+  }
+  catch (err) {
+    vscode.window.showErrorMessage(
+      `Error copying selected items: ${err instanceof Error ? err.message : 'Unknown error'}`,
+    )
+  }
+}
+
 export function activate(context: vscode.ExtensionContext) {
   const copyFolderContent = async (folder: vscode.Uri, prompt: string, withoutComments: boolean) => {
     try {
@@ -199,6 +238,19 @@ export function activate(context: vscode.ExtensionContext) {
 
   const disposableCopyFolderContentByType = vscode.commands.registerCommand('extension.copyFolderContentRecursivelyByType', copyFolderContentRecursivelyByType)
   context.subscriptions.push(disposableCopyFolderContentByType)
+
+  const disposableSelectedCopy = vscode.commands.registerCommand(
+    'extension.copySelectedFilesAndFolders',
+    async (uri: vscode.Uri, uris: vscode.Uri[]) => {
+      const selectedItems = uris?.length ? uris : (uri ? [uri] : [])
+      if (!selectedItems.length) {
+        vscode.window.showInformationMessage('No file or folder selected.')
+        return
+      }
+      await copySelected(selectedItems)
+    },
+  )
+  context.subscriptions.push(disposableSelectedCopy)
 }
 
 export function deactivate() { }

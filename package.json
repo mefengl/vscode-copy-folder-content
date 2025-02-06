@@ -53,53 +53,62 @@
       {
         "command": "extension.copyCollectionAndClear",
         "title": "Copy Collection and Clear"
+      },
+      {
+        "command": "extension.copySelectedFilesAndFolders",
+        "title": "Copy Selected Files and Folders"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "when": "explorerResourceIsFolder",
+          "when": "explorerViewletFocus && explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.copyFolderContent",
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerResourceIsFolder",
+          "when": "explorerViewletFocus && explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.copyFolderContentWithPrompt",
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerResourceIsFolder",
+          "when": "explorerViewletFocus && explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.copyFolderContentWithoutComments",
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerResourceIsFolder",
+          "when": "explorerViewletFocus && explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.copyFolderContentRecursively",
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerResourceIsFolder",
+          "when": "explorerViewletFocus && explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.copyFolderContentRecursivelyByType",
           "group": "copy-folder-content"
         },
         {
-          "when": "!explorerResourceIsFolder",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
           "command": "extension.newCollectionAndAdd",
           "group": "copy-folder-content"
         },
         {
-          "when": "!explorerResourceIsFolder",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
           "command": "extension.addToCollection",
           "group": "copy-folder-content"
         },
         {
-          "when": "!explorerResourceIsFolder",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
           "command": "extension.addToCollectionAndCopy",
           "group": "copy-folder-content"
         },
         {
-          "when": "!explorerResourceIsFolder",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
           "command": "extension.copyCollectionAndClear",
+          "group": "copy-folder-content"
+        },
+        {
+          "command": "extension.copySelectedFilesAndFolders",
+          "when": "explorerViewletFocus && listMultiSelection",
           "group": "copy-folder-content"
         }
       ]
