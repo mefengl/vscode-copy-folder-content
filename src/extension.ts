@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer'
 import * as iconv from 'iconv-lite'
 import * as jschardet from 'jschardet'
 import stripComments from 'strip-comments'
@@ -72,7 +73,7 @@ async function copyFolderContentRecursively(folder: vscode.Uri, withoutComments:
     await vscode.env.clipboard.writeText(content)
     vscode.window.setStatusBarMessage(`Recursive folder content copied to clipboard${withoutComments ? ' without comments' : ''}!`, 5000)
   }
-  catch (err) {
+  catch {
     vscode.window.showErrorMessage('Could not read folder recursively')
   }
 }
@@ -113,7 +114,7 @@ async function copyFolderContentRecursivelyByType(folder: vscode.Uri) {
         const entryUri = vscode.Uri.joinPath(folderUri, name)
         if (type === vscode.FileType.Directory)
           await copyFiles(entryUri)
-        else if (type === vscode.FileType.File && selectedExtensions.some(ext => name.endsWith(ext)))
+        else if (type === vscode.FileType.File && selectedExtensions && selectedExtensions.some(ext => name.endsWith(ext)))
           filesCollection.push(entryUri)
       }
     }
@@ -124,7 +125,7 @@ async function copyFolderContentRecursivelyByType(folder: vscode.Uri) {
     await vscode.env.clipboard.writeText(content)
     vscode.window.setStatusBarMessage(`Folder content with file extensions ${selectedExtensions.join(', ')} copied to clipboard!`, 5000)
   }
-  catch (err) {
+  catch {
     vscode.window.showErrorMessage('Could not read folder recursively')
   }
 }
@@ -183,7 +184,7 @@ export function activate(context: vscode.ExtensionContext) {
       await vscode.env.clipboard.writeText(content)
       vscode.window.setStatusBarMessage(`Folder content copied to clipboard${prompt ? ' with prompt' : ''}!`, 5000)
     }
-    catch (err) {
+    catch {
       vscode.window.showErrorMessage('Could not read folder')
     }
   }
@@ -192,7 +193,7 @@ export function activate(context: vscode.ExtensionContext) {
     try {
       filesCollection.push(file)
     }
-    catch (err) {
+    catch {
       vscode.window.showErrorMessage('Could not read file')
     }
   }
