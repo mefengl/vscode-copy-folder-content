@@ -87,22 +87,22 @@
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.newCollectionAndAdd",
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.addToCollection",
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.addToCollectionAndCopy",
           "group": "copy-folder-content"
         },
         {
-          "when": "explorerViewletFocus && !explorerResourceIsFolder && resourceExtname && !listMultiSelection",
+          "when": "explorerViewletFocus && !explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.copyCollectionAndClear",
           "group": "copy-folder-content"
         },
