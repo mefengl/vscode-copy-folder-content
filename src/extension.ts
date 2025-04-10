@@ -31,108 +31,95 @@ async function copyContent(files: vscode.Uri[], withoutComments: boolean = false
   return content
 }
 
-async function countFiles(folderUri: vscode.Uri): Promise<number> {
-  let count = 0
-  const entries = await vscode.workspace.fs.readDirectory(folderUri)
-  for (const [name, type] of entries) {
-    const entryUri = vscode.Uri.joinPath(folderUri, name)
-    if (type === vscode.FileType.Directory)
-      count += await countFiles(entryUri) // Recurse into subdirectories
-    else if (type === vscode.FileType.File)
-      count++
-  }
-  return count
-}
-
-async function copyFolderRecursive(folderUri: vscode.Uri, withoutComments: boolean = false) {
-  const entries = await vscode.workspace.fs.readDirectory(folderUri)
-  for (const [name, type] of entries) {
-    const entryUri = vscode.Uri.joinPath(folderUri, name)
-    if (type === vscode.FileType.Directory)
-      await copyFolderRecursive(entryUri, withoutComments)
-    else if (type === vscode.FileType.File)
-      filesCollection.push(entryUri)
-  }
-}
-
-async function copyFolderContentRecursively(folder: vscode.Uri, withoutComments: boolean) {
+async function getFilesRecursively(folderUri: vscode.Uri): Promise<vscode.Uri[]> {
+  let files: vscode.Uri[] = []
   try {
-    const fileCount = await countFiles(folder)
-    if (fileCount > 1000) {
-      const shouldContinue = await vscode.window.showWarningMessage(
-        `The folder contains more than 1000 files (${fileCount} files). Do you want to continue?`,
-        'Yes',
-        'No',
-      )
-      if (shouldContinue !== 'Yes')
-        return
+    const entries = await vscode.workspace.fs.readDirectory(folderUri)
+    for (const [name, type] of entries) {
+      const entryUri = vscode.Uri.joinPath(folderUri, name)
+      if (type === vscode.FileType.Directory) {
+        files = files.concat(await getFilesRecursively(entryUri)) // Recurse
+      }
+      else if (type === vscode.FileType.File) {
+        files.push(entryUri)
+      }
     }
-    filesCollection = []
-    await copyFolderRecursive(folder, withoutComments)
-    const content = await copyContent(filesCollection, withoutComments)
-    await vscode.env.clipboard.writeText(content)
-    vscode.window.setStatusBarMessage(`Recursive folder content copied to clipboard${withoutComments ? ' without comments' : ''}!`, 5000)
   }
-  catch {
-    vscode.window.showErrorMessage('Could not read folder recursively')
+  catch (err) {
+    // Log error or show a warning? For now, just ignore folders we can't read.
+    console.error(`Error reading directory ${folderUri.fsPath}: ${err}`)
+    // Optionally: vscode.window.showWarningMessage(`Could not read directory: ${folderUri.fsPath}`);
   }
+  return files
 }
 
 async function copyFolderContentRecursivelyByType(folder: vscode.Uri) {
   try {
-    const fileExtensions = new Set<string>()
+    // Use the new helper function
+    const allFiles = await getFilesRecursively(folder)
 
-    async function collectFileExtensions(folderUri: vscode.Uri) {
-      const entries = await vscode.workspace.fs.readDirectory(folderUri)
-      for (const [name, type] of entries) {
-        const entryUri = vscode.Uri.joinPath(folderUri, name)
-        if (type === vscode.FileType.Directory) {
-          await collectFileExtensions(entryUri)
-        }
-        else if (type === vscode.FileType.File) {
-          const extension = name.includes('.') ? `.${name.split('.').pop()}` : ''
-          if (extension)
-            fileExtensions.add(extension)
-        }
-      }
+    if (allFiles.length === 0) {
+      vscode.window.showInformationMessage('No files found in the folder.')
+      return
     }
 
-    await collectFileExtensions(folder)
-    const selectedExtensions = await vscode.window.showQuickPick(Array.from(fileExtensions), {
-      placeHolder: 'Select file extensions',
+    const fileExtensions = new Set<string>()
+    allFiles.forEach((fileUri) => {
+      // Extract filename robustly
+      const name = fileUri.path.substring(fileUri.path.lastIndexOf('/') + 1)
+      const extension = name.includes('.') ? `.${name.split('.').pop()}` : ''
+      if (extension)
+        fileExtensions.add(extension)
+    })
+
+    if (fileExtensions.size === 0) {
+      vscode.window.showInformationMessage('No files with extensions found in the folder.')
+      return
+    }
+
+    const selectedExtensions = await vscode.window.showQuickPick(Array.from(fileExtensions).sort(), { // Sort extensions
+      placeHolder: 'Select file extensions to copy',
       canPickMany: true,
     })
 
     if (!selectedExtensions || selectedExtensions.length === 0)
+      return // User cancelled
+
+    // Filter using the list returned by the helper
+    const filesToCopy = allFiles.filter((fileUri) => {
+      const name = fileUri.path.substring(fileUri.path.lastIndexOf('/') + 1)
+      return selectedExtensions.some(ext => name.endsWith(ext))
+    })
+
+    if (filesToCopy.length === 0) {
+      // This case should ideally not happen if selectedExtensions is not empty and fileExtensions was derived correctly
+      vscode.window.showInformationMessage('No files matching the selected extensions found.')
       return
-
-    filesCollection = []
-
-    async function copyFiles(folderUri: vscode.Uri) {
-      const entries = await vscode.workspace.fs.readDirectory(folderUri)
-      for (const [name, type] of entries) {
-        const entryUri = vscode.Uri.joinPath(folderUri, name)
-        if (type === vscode.FileType.Directory)
-          await copyFiles(entryUri)
-        else if (type === vscode.FileType.File && selectedExtensions && selectedExtensions.some(ext => name.endsWith(ext)))
-          filesCollection.push(entryUri)
-      }
     }
 
-    await copyFiles(folder)
+    // Add file count check
+    if (filesToCopy.length > 1000) {
+      const shouldContinue = await vscode.window.showWarningMessage(
+        `The selection contains more than 1000 files (${filesToCopy.length} files) of the selected types. Do you want to continue?`,
+        'Yes',
+        'No',
+      )
+      if (shouldContinue !== 'Yes')
+        return // Abort if user says no
+    }
 
-    const content = await copyContent(filesCollection)
+    const content = await copyContent(filesToCopy) // Pass the filtered list
     await vscode.env.clipboard.writeText(content)
-    vscode.window.setStatusBarMessage(`Folder content with file extensions ${selectedExtensions.join(', ')} copied to clipboard!`, 5000)
+    vscode.window.setStatusBarMessage(`Folder content with extensions [${selectedExtensions.join(', ')}] copied!`, 5000) // Adjusted message
   }
-  catch {
-    vscode.window.showErrorMessage('Could not read folder recursively')
+  catch (err) { // Add error parameter
+    vscode.window.showErrorMessage(`Could not read folder recursively by type: ${err instanceof Error ? err.message : 'Unknown error'}`)
   }
 }
 
 async function copySelected(selectedItems: vscode.Uri[]) {
   try {
-    const tempCollection: vscode.Uri[] = []
+    let tempCollection: vscode.Uri[] = [] // Changed to let
 
     for (const item of selectedItems) {
       const stat = await vscode.workspace.fs.stat(item)
@@ -141,24 +128,34 @@ async function copySelected(selectedItems: vscode.Uri[]) {
         tempCollection.push(item)
       }
       else if (stat.type === vscode.FileType.Directory) {
-        // Only get direct children (non-recursive)
-        const entries = await vscode.workspace.fs.readDirectory(item)
-        for (const [name, type] of entries) {
-          if (type === vscode.FileType.File) {
-            tempCollection.push(vscode.Uri.joinPath(item, name))
-          }
-        }
+        // Use the new recursive helper
+        const folderFiles = await getFilesRecursively(item)
+        tempCollection = tempCollection.concat(folderFiles) // Concatenate the results
       }
     }
 
-    if (tempCollection.length > 0) {
-      const content = await copyContent(tempCollection)
-      await vscode.env.clipboard.writeText(content)
-      vscode.window.setStatusBarMessage(
-        `Selected content copied to clipboard!`,
-        5000,
-      )
+    if (tempCollection.length === 0) {
+      vscode.window.showInformationMessage('No files found in the selection to copy.')
+      return
     }
+
+    // Add file count check for the total collection
+    if (tempCollection.length > 1000) {
+      const shouldContinue = await vscode.window.showWarningMessage(
+        `The selection contains more than 1000 files (${tempCollection.length} files). Do you want to continue?`,
+        'Yes',
+        'No',
+      )
+      if (shouldContinue !== 'Yes')
+        return // Abort if user says no
+    }
+
+    const content = await copyContent(tempCollection)
+    await vscode.env.clipboard.writeText(content)
+    vscode.window.setStatusBarMessage(
+      `Selected content copied to clipboard! (${tempCollection.length} files)`, // Add count
+      5000,
+    )
   }
   catch (err) {
     vscode.window.showErrorMessage(
@@ -240,7 +237,14 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposableNewCollectionAndAdd)
   context.subscriptions.push(disposableCopyCollectionAndClear)
 
-  const disposableRecursiveCopy = vscode.commands.registerCommand('extension.copyFolderContentRecursively', folder => copyFolderContentRecursively(folder, false))
+  const disposableRecursiveCopy = vscode.commands.registerCommand('extension.copyFolderContentRecursively', async (folder: vscode.Uri) => {
+    if (!folder) {
+      vscode.window.showErrorMessage('No folder specified for recursive copy.')
+      return
+    }
+    // Call copySelected with the single folder URI
+    await copySelected([folder])
+  })
   context.subscriptions.push(disposableRecursiveCopy)
 
   const disposableCopyFolderContentByType = vscode.commands.registerCommand('extension.copyFolderContentRecursivelyByType', copyFolderContentRecursivelyByType)
