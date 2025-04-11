@@ -216,10 +216,6 @@ export function activate(context: vscode.ExtensionContext) {
   }
 
   const disposable = vscode.commands.registerCommand('extension.copyFolderContent', folder => copyFolderContent(folder, '', false))
-  const disposableWithPrompt = vscode.commands.registerCommand('extension.copyFolderContentWithPrompt', async (folder) => {
-    const prompt = await vscode.window.showInputBox({ prompt: 'Enter the prompt' }) || ''
-    return copyFolderContent(folder, prompt, false)
-  })
   const disposableWithoutComments = vscode.commands.registerCommand('extension.copyFolderContentWithoutComments', folder => copyFolderContent(folder, '', true))
   const disposableAddToCollection = vscode.commands.registerCommand('extension.addToCollection', async (file) => {
     await addToCollection(file)
@@ -230,7 +226,6 @@ export function activate(context: vscode.ExtensionContext) {
   const disposableCopyCollectionAndClear = vscode.commands.registerCommand('extension.copyCollectionAndClear', copyCollectionAndClear)
 
   context.subscriptions.push(disposable)
-  context.subscriptions.push(disposableWithPrompt)
   context.subscriptions.push(disposableWithoutComments)
   context.subscriptions.push(disposableAddToCollection)
   context.subscriptions.push(disposableAddToCollectionAndCopy)

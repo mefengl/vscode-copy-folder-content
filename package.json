@@ -23,10 +23,6 @@
         "title": "Copy Folder Content"
       },
       {
-        "command": "extension.copyFolderContentWithPrompt",
-        "title": "Copy Folder Content With Prompt"
-      },
-      {
         "command": "extension.copyFolderContentWithoutComments",
         "title": "Copy Folder Content Without Comments"
       },
@@ -64,11 +60,6 @@
         {
           "when": "explorerViewletFocus && explorerResourceIsFolder && !listMultiSelection",
           "command": "extension.copyFolderContent",
-          "group": "copy-folder-content"
-        },
-        {
-          "when": "explorerViewletFocus && explorerResourceIsFolder && !listMultiSelection",
-          "command": "extension.copyFolderContentWithPrompt",
           "group": "copy-folder-content"
         },
         {
