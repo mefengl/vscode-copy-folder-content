@@ -2,6 +2,45 @@
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.6.1] - 2025-04-29
+
+### Changed
+
+- Updated dependencies and VS Code engine version. (Internal change, might affect compatibility)
+
+## [1.6.0] - 2025-04-29
+
+### Added
+
+- New command `Copy Last Selection`: Allows re-copying the content of the last selection made using this extension via a status bar item or command palette (commit `ed8c806`).
+
+## [1.5.4] - 2025-04-12
+
+### Removed
+
+- Removed the `Copy Folder Content With Prompt` command (commit `f58dadd`).
+
+## [1.5.1] - 2025-02-28
+
+### Added
+
+- Enhanced error handling for more robust operation (commit `20c9190`).
+
+## [1.5.0] - 2025-02-06
+
+### Added
+
+- New command `Copy Selected Files and Folders`: Allows copying multiple selected files and the direct files within selected folders from the explorer (commit `79293b1`).
+
+### Fixed
+
+- Addressed an issue related to cursor code version compatibility (commit `b8dec40`).
+
+### Changed
+
+- Improved formatting of the copied content for better readability (commits `d4a2e2b`, `853bfcf`).
+- Information messages (like "Copied!") now auto-hide after 5 seconds (commit `8043640`).
+
 ## [1.4.0] - 2024-04-23
 
 ### Added
