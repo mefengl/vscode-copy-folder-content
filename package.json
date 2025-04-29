@@ -2,7 +2,7 @@
   "publisher": "mefengl",
   "name": "copy-folder-content",
   "displayName": "Copy Folder Content",
-  "version": "1.5.4",
+  "version": "1.6.0",
   "private": true,
   "description": "Copies the content of a selected folder or a collection of files into the clipboard with customization options.",
   "author": "mefengl",
