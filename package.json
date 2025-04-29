@@ -53,6 +53,10 @@
       {
         "command": "extension.copySelectedFilesAndFolders",
         "title": "Copy Selected Files and Folders"
+      },
+      {
+        "command": "extension.copyLastSelection",
+        "title": "Copy Last Selection"
       }
     ],
     "menus": {
