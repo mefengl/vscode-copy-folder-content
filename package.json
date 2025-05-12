@@ -11,7 +11,7 @@
     "Other"
   ],
   "main": "./dist/extension.js",
-  "icon": "res/icon.png",
+  "icon": "res/logo.png",
   "engines": {
     "vscode": "^1.99.1"
   },
